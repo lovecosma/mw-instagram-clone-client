@@ -3,13 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {CloneProvider} from "./components/CombinedProvider"
+import { createStore } from "redux"
+import { Provider } from "react-redux"
+import rootReducer from "./reducers/rootReducer"
+
+const store = createStore(rootReducer)
 
 ReactDOM.render(
   <React.StrictMode>
-    <CloneProvider>
-    <App />
-    </CloneProvider>
+    <Provider store={store} >
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

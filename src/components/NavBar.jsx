@@ -1,10 +1,8 @@
 import React, {useContext} from 'react'
 import { NavLink } from "react-router-dom"
-import {CloneContext} from "./CombinedProvider"
 
 export default function NavBar() {
 
-    const {UsersState} = useContext(CloneContext)
     return <div></div>
     // if(requesting){
     //     return <div>Requesting</div>
