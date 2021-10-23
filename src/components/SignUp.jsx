@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
-import {useHistory} from "react-router-dom"
+import { useHistory } from "react-router-dom"
+import {signup} from "../actions/users"
+import { useDispatch } from "react-redux"
 export default function SignUp({setSession}) {
     const history = useHistory()
     const [formData, setFormData] = useState({
         username: "",
         password: ""
     })
+    const dispatch = useDispatch()
     const handleChange = (e) => {
         setFormData(prev => {
             return {
@@ -15,32 +18,10 @@ export default function SignUp({setSession}) {
         })
     }
 
-    const handleSubmit = (e) => {
+     function handleSubmit(e){
         e.preventDefault()
-        setSession(prev => {
-            return {
-                ...prev,
-                requesting: true
-            }
-        })
-        const params = {
-            user: {
-                ...formData
-            }
-        }
-        fetch("/api/signup", {
-            method: "POST",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(params)
-        })
-        .then(resp => resp.json())
-        .then(userData => {
-          
-        })
-        .catch(error => alert("Logged In"))
+        signup(dispatch, formData)
+        history.push("/")
     }
     return ( 
         <div>

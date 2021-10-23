@@ -7,7 +7,7 @@ export default function UserNavBar() {
         <div>
             <NavLink to="/">Home</NavLink><br/>
             <NavLink to="/upload">Upload</NavLink><br/>
-            <NavLink to="/posts">Posts</NavLink>
+            <NavLink to="/posts">Posts</NavLink><br/>
             <NavLink to="/logout">Logout</NavLink>
         </div>
     )
