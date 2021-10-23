@@ -9,14 +9,14 @@ export const fetchUser = (dispatch, user_id) => {
     })
 }
 
-export const signup = (dispatch, userInfo) => {
-    dispatch({type: "REQUESTING_SIGN_UP"})
+export async function login(dispatch, userInfo){
+    dispatch({type: "REQUESTING_LOGIN"})
     const params = {
-        user: {
+        session: {
             ...userInfo
         }
     }
-     fetch(BASE_URL + `/users`, {
+     let resp = await fetch(BASE_URL + `/login`, {
         method: "POST",
         headers: {
             "Accept": "application/json",
@@ -24,8 +24,40 @@ export const signup = (dispatch, userInfo) => {
         },
         body: JSON.stringify(params)
     })
-    .then(resp => resp.json())
-    .then(userData => {
-        dispatch({type: "SIGN_UP", user: {...userData}})
+    let userData = await resp.json()
+    dispatch({type: "LOGIN", user: {...userData}})
+    return Promise.resolve("resolved")
+}
+
+export async function signup(dispatch, userInfo){
+    dispatch({type: "REQUESTING_SIGN_UP"})
+    const params = {
+        user: {
+            ...userInfo
+        }
+    }
+     let resp = await fetch(BASE_URL + `/users`, {
+        method: "POST",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(params)
     })
+    let userData = await resp.json()
+    dispatch({type: "SIGN_UP", user: {...userData}})
+    return Promise.resolve("resolved")
+}
+
+export async function logout(dispatch){
+    dispatch({type: "REQUESTING_LOGOUT"})
+    let resp = fetch(BASE_URL + '/logout', {
+        method: "POST",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+    })
+    dispatch({type: "LOGOUT"})
+    return Promise.resolve("resolved")
 }

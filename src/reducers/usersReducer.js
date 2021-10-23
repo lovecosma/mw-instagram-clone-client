@@ -13,6 +13,30 @@ const usersReducer = (state = {user: {}, loggedIn: false, requesting: true}, act
                 loggedIn: true,
                 requesting: false
             }
+        case "REQUESTING_LOGIN":
+            return {
+                ...state,
+                requesting: true,
+            }
+        case "LOGIN":
+            return {
+                ...state,
+                loggedIn: true,
+                user: {...action.user},
+                requesting: false
+            }
+        case "REQUESTING_LOGOUT":
+            return {
+                ...state,
+                requesting: true
+            }
+        case "LOGOUT":
+            return {
+                ...state,
+                user: {},
+                loggedIn: false,
+                requesting: false
+            }
         case "REQUESTING_SIGN_UP":
             return {
                 ...state,
