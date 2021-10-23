@@ -23,7 +23,11 @@ export default function Login() {
 
      async function handleSubmit(e){
         e.preventDefault()
-       let resp = await login(dispatch, formData)
+        try{
+            await login(dispatch, formData)
+        } catch(e){
+            alert(e.message) 
+        }
         history.push("/")
     }
     return ( 

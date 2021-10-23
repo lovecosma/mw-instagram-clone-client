@@ -4,7 +4,7 @@ import {signup} from "../actions/users"
 import { useDispatch } from "react-redux"
 
 export default function SignUp() {
-    
+
     const history = useHistory()
     const [formData, setFormData] = useState({
         username: "",
@@ -22,15 +22,19 @@ export default function SignUp() {
 
      async function handleSubmit(e){
         e.preventDefault()
-       let resp = await signup(dispatch, formData)
+       try{
+            await signup(dispatch, formData)
+        } catch(e){
+            alert(e.message) 
+        }
         history.push("/")
     }
     return ( 
         <div>
             <form onSubmit={handleSubmit} >
-                <label for="username">Username</label>
+                <label htmlFor="username">Username</label>
                 <input onChange={handleChange} type="text" name="username" value={formData.username}></input>
-                <label for="password">Password</label>
+                <label htmlFor="password">Password</label>
                 <input onChange={handleChange} type="password" name="password" value={formData.password}></input>
                 <button onClick={() => console.log(formData)} >Sign Up</button>
             </form>

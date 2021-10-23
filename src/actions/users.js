@@ -16,14 +16,19 @@ export async function login(dispatch, userInfo){
             ...userInfo
         }
     }
-     let resp = await fetch(BASE_URL + `/login`, {
-        method: "POST",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(params)
-    })
+    let resp
+    try{
+        resp = await fetch(BASE_URL + `/login`, {
+           method: "POST",
+           headers: {
+               "Accept": "application/json",
+               "Content-Type": "application/json"
+           },
+           body: JSON.stringify(params)
+       })
+    } catch(e){
+        return Promise.reject(e)
+    }
     let userData = await resp.json()
     dispatch({type: "LOGIN", user: {...userData}})
     return Promise.resolve("resolved")
@@ -36,14 +41,19 @@ export async function signup(dispatch, userInfo){
             ...userInfo
         }
     }
-     let resp = await fetch(BASE_URL + `/users`, {
-        method: "POST",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(params)
-    })
+    let resp
+    try{
+        resp = await fetch(BASE_URL + `/users`, {
+           method: "POST",
+           headers: {
+               "Accept": "application/json",
+               "Content-Type": "application/json"
+           },
+           body: JSON.stringify(params)
+       })
+    } catch(error){
+        return Promise.reject(error)
+    }
     let userData = await resp.json()
     dispatch({type: "SIGN_UP", user: {...userData}})
     return Promise.resolve("resolved")
