@@ -10,7 +10,6 @@ export default function NavContainer() {
             loggedIn: usersReducer.loggedIn
         }
     })
-    console.log(loggedIn);
     return (
         <div>
             {loggedIn ? <UserNavBar/> : <GuestNavBar/> }

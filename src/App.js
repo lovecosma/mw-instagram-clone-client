@@ -5,8 +5,19 @@ import PostsContainer from "./containers/PostsContainer"
 import SignUp from "./components/SignUp"
 import NavContainer from "./containers/NavContainer"
 import Login from "./components/Login"
-
+import {useEffect} from "react"
+import {useDispatch} from "react-redux"
 function App() {
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    let user = localStorage.getItem("user")
+    if(user !== ""){
+      let userInfo = JSON.parse(user)
+      dispatch({type: "LOGIN", user: {...userInfo}})
+    }
+  }, [])
   
     return (
       <div>

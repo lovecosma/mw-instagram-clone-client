@@ -1,5 +1,6 @@
 const BASE_URL="http://localhost:3001"
 
+
 export const fetchUser = (dispatch, user_id) => {
     dispatch({type: "REQUESTING_USER"})
     fetch(BASE_URL + `/users/${user_id}`)
@@ -30,6 +31,7 @@ export async function login(dispatch, userInfo){
         return Promise.reject(e)
     }
     let userData = await resp.json()
+    localStorage.setItem("user", JSON.stringify({...userData}))
     dispatch({type: "LOGIN", user: {...userData}})
     return Promise.resolve("resolved")
 }
@@ -68,6 +70,7 @@ export async function logout(dispatch){
             "Content-Type": "application/json"
         }
     })
+    localStorage.setItem("user", "")
     dispatch({type: "LOGOUT"})
     return Promise.resolve("resolved")
 }
