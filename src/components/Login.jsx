@@ -28,7 +28,7 @@ export default function Login() {
         } catch(e){
             alert(e.message) 
         }
-        history.push("/")
+        history.push("/users/1")
     }
     return ( 
         <div>
